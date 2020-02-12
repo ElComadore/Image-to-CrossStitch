@@ -1,37 +1,27 @@
 package reducer;
 
-import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class colourSpace{
     private List<rgb> colours;
 
-    public colourSpace(colourMatrix mat){
+    public colourSpace(colourMatrix mat){       //True initialization
         this.colours = new ArrayList<>();
         createColourList(mat);
-        sortByAmount();
-        for(rgb col : colours){
-            System.out.println(col.getAmount());
-        }
-        checkAmounts();
-        reduce();
-        for(rgb col : colours){
-            System.out.println(col.getAmount());
-        }
-        sortByAmount();
-        for(rgb col : colours){
-            System.out.println(col.getAmount());
-        }
-        System.out.println(colours.size());
-        System.out.println(colours.get(0).getAmount());
-        checkAmounts();
+        sortByAmount();                         //Sorting allows for easier reduction
+        checkAmounts();                         //Check to be sure I have the right number of coloured pixels
+        reduce();                               //Create a more concise list
+        sortByAmount();                         //Possibly unnecessary, but is not that much
+        System.out.println(colours.size());                 //Another check
+        System.out.println(colours.get(0).getAmount());     //Another check
+        checkAmounts();                                     //If it's the same as above we gucci
     }
 
-    public colourSpace(colourSpace space, int i){
+    public colourSpace(colourSpace space, int i){       //Is for the second reduced based on user required amount
         this.colours = space.getColours();
         reduce(i);
-        checkAmounts();
+        checkAmounts();                                 //To see if it's the same
         System.out.println(colours.size());
         System.out.println(colours.get(0).getAmount());
     }

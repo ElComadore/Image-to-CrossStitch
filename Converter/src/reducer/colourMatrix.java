@@ -1,10 +1,6 @@
 package reducer;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.time.Year;
 
 public class colourMatrix extends intro{
     private rgb[][] innerPixels;
@@ -19,7 +15,7 @@ public class colourMatrix extends intro{
         this.hop = calcHop(image);
 
         this.innerPixels = calcInnerPixels(image, hop);
-        this.outerPixels = calcOuterPixels(image, hop);
+        this.outerPixels = calcOuterPixels();
     }
 
     public colourMatrix(colourMatrix mat){
@@ -62,7 +58,7 @@ public class colourMatrix extends intro{
         return prime;
     }
 
-    private rgb[][] calcOuterPixels(BufferedImage image, int hop){
+    private rgb[][] calcOuterPixels(){
         return null;
     }
 
@@ -110,10 +106,6 @@ public class colourMatrix extends intro{
             }
         }
     return replaced;
-    }
-
-    public colourMatrix resize(){
-        return null;
     }
 
     public BufferedImage toImage(){

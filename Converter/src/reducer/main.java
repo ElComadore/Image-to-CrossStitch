@@ -1,7 +1,5 @@
 package reducer;
 
-import jdk.jshell.execution.Util;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -12,31 +10,24 @@ import java.util.Scanner;
 
 
 public class main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         BufferedImage image = null;
         try {
             image = ImageIO.read(new File(getUserFile()));
-        }catch (IOException e){
+        }catch (IOException e){System.out.println(("Not an image my dude"));
         }
 
-        int colour = image.getRGB(0,0);
-        System.out.println(colour);
-        rgb col = new rgb(colour);
-        System.out.println(col.getRed());
-        System.out.println(col.getGreen());
-        System.out.println(col.getBlue());
-
-        colourMatrix colMat = new colourMatrix(image);
-        colourSpace colSpace = new colourSpace(colMat);
-        //colSpace.toPantone()
-        colourSpace reduced = new colourSpace(colSpace, getUserColours(colSpace));
-        colourMatrix replaced = colMat.replace(reduced);
-        BufferedImage done = replaced.toImage();
+        colourMatrix colMat = new colourMatrix(image);          //Convert image to matrix
+        colourSpace colSpace = new colourSpace(colMat);         //Generate colour space from matrix
+        //colSpace.toPantone()                                                              //Change to pantone colour space
+        colourSpace reduced = new colourSpace(colSpace, getUserColours(colSpace));          //Create a reduced colour list, <500
+        colourMatrix replaced = colMat.replace(reduced);                                //Create a matrix out of the reduced colours
+        BufferedImage done = replaced.toImage();                //Make the image while resizing it
         displayImage(done);
     }
 
-    static String getUserFile() {
+    static String getUserFile() {       //Gets the image, or simply file
         String fullFileName = null;
         JFrame yourJFrame = new JFrame();
         FileDialog fd = new FileDialog(yourJFrame, "Choose a file", FileDialog.LOAD);
@@ -54,7 +45,7 @@ public class main {
         return fullFileName;
     }
 
-    static int getUserColours(colourSpace space){
+    static int getUserColours(colourSpace space){       //Gets how many colours the user wants
         final Scanner sc = new Scanner(System.in);
         System.out.println("How many colours do you want (max: " + space.getColours().size() + ")?");
         int amount = sc.nextInt();
@@ -67,7 +58,7 @@ public class main {
         }
         return amount;
     }
-    static void displayImage(BufferedImage img){
+    static void displayImage(BufferedImage img){        //Shows the image, need to make one that saves
         JFrame frame = new JFrame();
         frame.getContentPane().setLayout(new FlowLayout());
         frame.getContentPane().add(new JLabel(new ImageIcon(img)));
