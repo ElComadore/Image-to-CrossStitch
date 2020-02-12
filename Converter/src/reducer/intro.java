@@ -3,7 +3,7 @@ package reducer;
 import java.awt.image.BufferedImage;
 import java.util.Scanner;
 
-public class intro {
+public class intro {                //What the user sees upon start up
 
     public int calcRow(BufferedImage image){
         final Scanner sc = new Scanner(System.in);

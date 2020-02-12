@@ -6,12 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9454941-2f10-4684-bec9-4d41616db863" name="Default Changelist" comment="Asdf">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="f9454941-2f10-4684-bec9-4d41616db863" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducer/colourMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/colourMatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducer/colourSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/colourSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducer/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducer/intro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/intro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducer/rgb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/rgb.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,11 +87,20 @@
       <option name="presentableId" value="Default" />
       <updated>1579360420333</updated>
     </task>
+    <task id="LOCAL-00001" summary="Just keep the pushing">
+      <created>1581527213060</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1581527213060</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Asdf" />
-    <option name="LAST_COMMIT_MESSAGE" value="Asdf" />
+    <MESSAGE value="Just keep the pushing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Just keep the pushing" />
   </component>
   <component name="WindowStateProjectService">
     <state x="243" y="42" key="#Auto_Import" timestamp="1579635646469">
@@ -106,10 +115,10 @@
       <screen x="0" y="0" width="1303" height="768" />
     </state>
     <state x="381" y="130" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1303.768@0.0.1303.768" timestamp="1579361820573" />
-    <state x="305" y="0" key="CommitChangelistDialog2" timestamp="1581526894766">
+    <state x="305" y="0" key="CommitChangelistDialog2" timestamp="1581527211924">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state x="305" y="0" key="CommitChangelistDialog2/0.0.1303.768@0.0.1303.768" timestamp="1581526894766" />
+    <state x="305" y="0" key="CommitChangelistDialog2/0.0.1303.768@0.0.1303.768" timestamp="1581527211924" />
     <state width="1260" height="281" key="GridCell.Tab.0.bottom" timestamp="1581526791167">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
@@ -146,10 +155,10 @@
       <screen x="0" y="0" width="1303" height="768" />
     </state>
     <state x="131" y="0" key="SettingsEditor/0.0.1303.768@0.0.1303.768" timestamp="1581526769183" />
-    <state x="243" y="116" key="Vcs.Push.Dialog.v2" timestamp="1581527193756">
+    <state x="243" y="116" key="Vcs.Push.Dialog.v2" timestamp="1581528527686">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state x="243" y="116" key="Vcs.Push.Dialog.v2/0.0.1303.768@0.0.1303.768" timestamp="1581527193756" />
+    <state x="243" y="116" key="Vcs.Push.Dialog.v2/0.0.1303.768@0.0.1303.768" timestamp="1581528527686" />
     <state x="314" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1581526784857">
       <screen x="0" y="0" width="1303" height="768" />
     </state>

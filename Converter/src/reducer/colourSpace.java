@@ -26,10 +26,10 @@ public class colourSpace{
         System.out.println(colours.get(0).getAmount());
     }
 
-    private void createColourList(colourMatrix mat){
+    private void createColourList(colourMatrix mat){        //Concentrates the matrix into a minimum colour list
         for(int i = 0; i < mat.getRow(); i++){
             for(int j = 0; j < mat.getCol(); j++){
-                rgb aver = mat.getInnerPixels(i,j);
+                rgb aver = mat.getInnerPixels(i,j);         //Average of a specific region
                 if(colours.size() != 0){
                     checkList(aver);
                 }else{
@@ -37,9 +37,9 @@ public class colourSpace{
                 }
             }
         }
-        checkAmounts();
+        checkAmounts();                 //Always with the checking, though it really aint necessary
     }
-    private void checkList(rgb aver){
+    private void checkList(rgb aver){   //Checks to see if the image is in the colour list
         for(rgb colour : colours){
             if(aver.getDec() == colour.getDec()){
                 colour.anotherFew(aver.getAmount());
@@ -48,7 +48,7 @@ public class colourSpace{
         }
         colours.add(aver);
     }
-    private void sortByAmount(){
+    private void sortByAmount(){            //Bubble sort by amount
         int stopPos = 0;
         while(this.colours.size()-stopPos > 0){
             int inARow = 1;
@@ -67,16 +67,16 @@ public class colourSpace{
             }
         }
     }
-    private void reduce(){
+    private void reduce(){                  //Initial reduction
         while(colours.size() > 500){
-            rgb curColour = colours.get(colours.size() - 1);
+            rgb curColour = colours.get(colours.size() - 1); //Start at the bottom
             double closest = -1;
             int id = -1;
             boolean notChanged = true;
 
             for(int i = 0; i < colours.size() - 1; i++){
-                double dist = getDist(colours.get(i), curColour);
-                if(dist < 0){
+                double dist = getDist(colours.get(i), curColour);   //Euclidean distance
+                if(dist < 0){                                       //If you want to make it a softer boundary. instead of nearest
                     colours.get(i).anotherFew(curColour.getAmount());
                     notChanged = false;
                     break;
@@ -89,21 +89,21 @@ public class colourSpace{
                 colours.get(id).anotherFew(curColour.getAmount());
             }
             colours.remove(colours.size() - 1);
-            reinsert(id);
-        }
+            reinsert(id);                               //Reorganises the list so that the colour is in the right place
+        }                                               //Gets weird results if you don't do this
     }
-    private void reinsert(int index){
+    private void reinsert(int index){                   //Insert into list at right area
         rgb temp = colours.get(index);
         for(rgb col : colours){
             if(col.getAmount() < temp.getAmount()){
                 colours.add(colours.indexOf(col), temp);
-                colours.remove(index + 1);
+                colours.remove(index + 1);          //List is one longer, so you need to delete the one 'below'
                 break;
             }
         }
     }
 
-    private void reduce(int amount){
+    private void reduce(int amount){                //User controlled reduction, otherwise similar
         while(colours.size() > amount){
             rgb curColour = colours.get(colours.size() - 1);
             double closest = -1;
