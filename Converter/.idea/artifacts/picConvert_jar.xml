@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="picConvert:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/picConvert_jar</output-path>
+    <root id="archive" name="picConvert.jar">
+      <element id="module-output" name="picConvert" />
+    </root>
+  </artifact>
+</component>

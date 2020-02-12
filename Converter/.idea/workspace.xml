@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="picConvert:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f9454941-2f10-4684-bec9-4d41616db863" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1WZcBImK8KRAuMhI52TsByalNmX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="reducer.main" />
+      <module name="picConvert" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="reducer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f9454941-2f10-4684-bec9-4d41616db863" name="Default Changelist" comment="" />
+      <created>1579360420333</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1579360420333</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="243" y="42" key="#Auto_Import" timestamp="1579635646469">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state x="243" y="42" key="#Auto_Import/0.0.1303.768@0.0.1303.768" timestamp="1579635646469" />
+    <state x="381" y="167" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1579366742612">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state x="381" y="167" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1303.768@0.0.1303.768" timestamp="1579366742612" />
+    <state x="381" y="130" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579361820573">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state x="381" y="130" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1303.768@0.0.1303.768" timestamp="1579361820573" />
+    <state width="1260" height="189" key="GridCell.Tab.0.bottom" timestamp="1581523094974">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state width="1260" height="189" key="GridCell.Tab.0.bottom/0.0.1303.768@0.0.1303.768" timestamp="1581523094974" />
+    <state width="1260" height="189" key="GridCell.Tab.0.center" timestamp="1581523094974">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state width="1260" height="189" key="GridCell.Tab.0.center/0.0.1303.768@0.0.1303.768" timestamp="1581523094974" />
+    <state width="1260" height="189" key="GridCell.Tab.0.left" timestamp="1581523094974">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state width="1260" height="189" key="GridCell.Tab.0.left/0.0.1303.768@0.0.1303.768" timestamp="1581523094974" />
+    <state width="1260" height="189" key="GridCell.Tab.0.right" timestamp="1581523094974">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state width="1260" height="189" key="GridCell.Tab.0.right/0.0.1303.768@0.0.1303.768" timestamp="1581523094974" />
+    <state width="1260" height="281" key="GridCell.Tab.1.bottom" timestamp="1581522119172">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state width="1260" height="281" key="GridCell.Tab.1.bottom/0.0.1303.768@0.0.1303.768" timestamp="1581522119172" />
+    <state width="1260" height="281" key="GridCell.Tab.1.center" timestamp="1581522119171">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state width="1260" height="281" key="GridCell.Tab.1.center/0.0.1303.768@0.0.1303.768" timestamp="1581522119171" />
+    <state width="1260" height="281" key="GridCell.Tab.1.left" timestamp="1581522119171">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state width="1260" height="281" key="GridCell.Tab.1.left/0.0.1303.768@0.0.1303.768" timestamp="1581522119171" />
+    <state width="1260" height="281" key="GridCell.Tab.1.right" timestamp="1581522119171">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state width="1260" height="281" key="GridCell.Tab.1.right/0.0.1303.768@0.0.1303.768" timestamp="1581522119171" />
+    <state x="131" y="0" key="SettingsEditor" timestamp="1579366814254">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state x="131" y="0" key="SettingsEditor/0.0.1303.768@0.0.1303.768" timestamp="1579366814254" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/reducer/main.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/reducer/colourMatrix.java</url>
+          <line>120</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
