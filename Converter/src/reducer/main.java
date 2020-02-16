@@ -10,11 +10,13 @@ import java.util.Scanner;
 
 
 public class main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         BufferedImage image = null;
+        File file = null;
         try {
-            image = ImageIO.read(new File(getUserFile()));
+            file = new File(getUserFile());
+            image = ImageIO.read(file);
         }catch (IOException e){System.out.println(("Not an image my dude"));
         }
 
@@ -24,7 +26,9 @@ public class main {
         colourSpace reduced = new colourSpace(colSpace, getUserColours(colSpace));          //Create a reduced colour list, <500
         colourMatrix replaced = colMat.replace(reduced);                                //Create a matrix out of the reduced colours
         BufferedImage done = replaced.toImage();                //Make the image while resizing it
-        displayImage(done);
+        File outFile = new File(file.getName().substring(0, file.getName().length()-4) + "Convert" + file.getName().substring(file.getName().length()-4));
+        ImageIO.write(done, file.getName().substring(file.getName().length()-3), outFile);
+        System.exit(1);
     }
 
     static String getUserFile() {       //Gets the image, or simply file

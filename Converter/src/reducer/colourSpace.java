@@ -7,10 +7,11 @@ public class colourSpace{
     private List<rgb> colours;
 
     public colourSpace(colourMatrix mat){       //True initialization
-        this.colours = new ArrayList<>();
+        colours = new ArrayList<>();
         createColourList(mat);
         sortByAmount();                         //Sorting allows for easier reduction
         checkAmounts();                         //Check to be sure I have the right number of coloured pixels
+        System.out.println(colours.size());
         reduce();                               //Create a more concise list
         sortByAmount();                         //Possibly unnecessary, but is not that much
         System.out.println(colours.size());                 //Another check
@@ -50,19 +51,19 @@ public class colourSpace{
     }
     private void sortByAmount(){            //Bubble sort by amount
         int stopPos = 0;
-        while(this.colours.size()-stopPos > 0){
+        while(colours.size()-stopPos > 0){
             int inARow = 1;
-            for(int i = this.colours.size() - 1; i > stopPos; i--){
-                if(this.colours.get(i-1).getAmount() < this.colours.get(i).getAmount()){
-                    rgb temp = new rgb(this.colours.get(i-1));
-                    this.colours.set(i-1, this.colours.get(i));
-                    this.colours.set(i, temp);
+            for(int i = colours.size() - 1; i > stopPos; i--){
+                if(colours.get(i-1).getAmount() < colours.get(i).getAmount()){
+                    rgb temp = new rgb(colours.get(i-1));
+                    colours.set(i-1, colours.get(i));
+                    colours.set(i, temp);
                 }else{
                     inARow++;
                 }
             }
             stopPos++;
-            if(inARow == this.colours.size()){
+            if(inARow == colours.size()){
                 break;
             }
         }

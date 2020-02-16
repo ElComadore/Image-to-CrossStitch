@@ -10,13 +10,13 @@ public class rgb {
     private int amount;
 
     public rgb(int colour){
-        this.colour = colour;
-        this.red = colour & 0xff;
-        this.green = (colour & 0xff00) >> 8;            //Bit conversion, which is kinda cool I guess
-        this.blue = (colour & 0xff0000) >> 16;
-        this.alpha = (colour & 0xff000000) >>16;
-        this.dec = 1000000*this.red + 1000*this.green + this.blue;
-        this.amount = 1;
+        colour = colour;
+        red = colour & 0xff;
+        green = (colour & 0xff00) >> 8;            //Bit conversion, which is kinda cool I guess
+        blue = (colour & 0xff0000) >> 16;
+        alpha = (colour & 0xff000000) >>16;
+        dec = 1000000*red + 1000*green + blue;
+        amount = 1;
     }
     public rgb(rgb colour){
         this.colour = colour.getColour();
@@ -28,13 +28,13 @@ public class rgb {
         this.amount = colour.getAmount();
     }
     public rgb(int red, int green, int blue, int alpha){
-        this.colour = alpha << 24 | blue << 16 | green << 8 | red;      //The reconversion, this took , too long to figure out
+        colour = alpha << 24 | blue << 16 | green << 8 | red;      //The reconversion, this took, too long to figure out
         this.red = red;
         this.green = green;
         this.blue = blue;
         this.alpha = alpha;
-        this.dec = 1000000*this.red + 1000*this.green + this.blue;
-        this.amount = 1;
+        dec = 1000000*this.red + 1000*this.green + this.blue;
+        amount = 1;
     }
 
     public void anotherFew(int amt){
