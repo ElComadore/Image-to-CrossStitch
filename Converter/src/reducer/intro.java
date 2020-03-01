@@ -9,6 +9,7 @@ public class intro {                //What the user sees upon start up
         final Scanner sc = new Scanner(System.in);
         System.out.println("The dimensions of this image are " + image.getHeight() + "x" + image.getWidth());
         System.out.println("How many stitches down do you want (max: " + image.getHeight() +")?");
+        System.out.println("Please be aware that the ratio of the input image will be preserved as best as possible");
         int row = sc.nextInt();
         row = checkNum(row, image.getTileHeight());
         return row;
@@ -17,10 +18,10 @@ public class intro {                //What the user sees upon start up
     public int calcCol(BufferedImage image, int row){
         final Scanner sc = new Scanner(System.in);
         int maxCol = (image.getWidth()*row)/image.getHeight();
-        System.out.println("And how many across (max: " + maxCol + ")?");
-        int col = sc.nextInt();
-        col = checkNum(col, maxCol);
-        return col;
+        //System.out.println("And how many across (max: " + maxCol + ")?");
+        //int col = sc.nextInt();
+        //col = checkNum(col, maxCol);
+        return maxCol;
     }
 
     private int checkNum(int num, int max){

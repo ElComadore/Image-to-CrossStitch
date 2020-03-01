@@ -28,24 +28,32 @@ public class colourSpace{
     }
 
     private void createColourList(colourMatrix mat){        //Concentrates the matrix into a minimum colour list
-        for(int i = 0; i < mat.getRow(); i++){
-            for(int j = 0; j < mat.getCol(); j++){
-                rgb aver = mat.getInnerPixels(i,j);         //Average of a specific region
-                if(colours.size() != 0){
-                    checkList(aver);
+        for(rgb[] rgbInner : mat.getInnerPixels()){
+            for(rgb inners : rgbInner){
+                if(colours.size() == 0){
+                    colours.add(inners);
                 }else{
-                    colours.add(aver);
+                    checkList(inners);
                 }
             }
         }
+
         checkAmounts();                 //Always with the checking, though it really aint necessary
     }
     private void checkList(rgb aver){   //Checks to see if the image is in the colour list
         for(rgb colour : colours){
-            if(aver.getDec() == colour.getDec()){
-                colour.anotherFew(aver.getAmount());
-                return;
-            }
+            try {
+                if (aver.getDec() == colour.getDec()) {
+                    try {
+
+                        colour.anotherFew(aver.getAmount());
+                    } catch (Exception e) {
+                        System.out.println("Error in the adding of amounts");
+                        System.exit(0);
+                    }
+                    return;
+                }
+            }catch (NullPointerException e){System.out.println("Error in the decimals"); System.exit(0);}
         }
         colours.add(aver);
     }
@@ -126,6 +134,7 @@ public class colourSpace{
                 colours.get(id).anotherFew(curColour.getAmount());
             }
             colours.remove(colours.size() - 1);
+            reinsert(id);
         }
     }
 

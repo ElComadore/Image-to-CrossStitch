@@ -10,7 +10,7 @@ public class rgb {
     private int amount;
 
     public rgb(int colour){
-        colour = colour;
+        this.colour = colour;
         red = colour & 0xff;
         green = (colour & 0xff00) >> 8;            //Bit conversion, which is kinda cool I guess
         blue = (colour & 0xff0000) >> 16;

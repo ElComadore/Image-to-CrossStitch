@@ -8,6 +8,7 @@ import java.nio.Buffer;
 
 public class colourMatrix extends intro{
     private rgb[][] innerPixels;            //The complete clean cut
+    private rgb[][] resized;
     private rgb[] topCutOff;
     private rgb[] bottomCutOff;
     private rgb[] leftCutOff;
@@ -15,50 +16,62 @@ public class colourMatrix extends intro{
     private int row;
     private int col;
     private int hop;
+    private int rowRat;
+    private int colRat;
 
     public colourMatrix(BufferedImage image) {      //Initialization
         row = calcRow(image);
         col = calcCol(image, this.row);
         hop = calcHop(image);
+        rowRat = image.getHeight() / hop;
+        colRat = image.getWidth() / hop;
 
-        innerPixels = calcInnerPixels(image);
-        //topCutOff = calcTopCut(image);
-        //bottomCutOff = calcBottomCut(image);
-        //leftCutOff = calcLeftCut(image);
-        //rightCutOff = calcRightCut(image);
+        resized = initialResize(image);
+        innerPixels = calcInnerPixels(resized);
+
+        //innerPixels = calcInnerPixels(image);
+
+        //if(image.getHeight() % row != 0 && hop > 1){
+        //    topCutOff = calcTopCut(image);
+        //    bottomCutOff = calcBottomCut(image);
+        //}
+        //if(image.getWidth() % col != 0 && hop > 1) {
+        //    leftCutOff = calcLeftCut(image);
+        //    rightCutOff = calcRightCut(image);
+        //}
     }
 
     public colourMatrix(colourMatrix mat){      //To create an empty inner and outer pixel thing, probably not the greatest method
         this.row = mat.getRow();
         this.col = mat.getCol();
         this.hop = mat.getHop();
+        this.rowRat = mat.getRowRat();
+        this.colRat = mat.getColRat();
 
+        this.resized = mat.getResized();
         this.innerPixels = new rgb[mat.getInnerPixels().length][mat.getInnerPixels()[0].length];
     }
 
     private int calcHop(BufferedImage image){                           //How many pixels are condensed into one
-        int detSide = Math.max(image.getHeight(), image.getWidth());
-
-        if(detSide == image.getWidth()){        //This is some bullshit maths that just sorta works
-            return detSide/col;
-        }else{
-            return detSide/row;
-        }
+        return Math.min(image.getHeight() / row, image.getWidth() / col);
     }
 
     private rgb[][] calcInnerPixels(BufferedImage image) {  //Does the averaging for the clean cut stuff
-        int skipRow = (image.getHeight() - row*hop)/2;      //How many in you need to go, like the dough around the stencil
-        int skipCol = (image.getWidth() - col*hop)/2;
+        //int skipRow = (image.getHeight() - row*hop)/2;      //How many in you need to go, like the dough around the stencil
+        //int skipCol = (image.getWidth() - col*hop)/2;
 
-        rgb[][] prime = new rgb[row][col];      //A matrix of the right size
+        int skipRow = (image.getHeight() - hop*rowRat)/2;
+        int skipCol = (image.getWidth() - hop*colRat)/2;
+
+        rgb[][] prime = new rgb[rowRat][colRat];      //A matrix of the right size
         int x = -1;                                                         //Now comes the real retarded garbage
-        for(int i = skipRow; i < hop*row + skipRow-1; i = i + hop){
+        for(int i = skipRow; i < hop*rowRat + skipRow; i = i + hop){
             x++;
             int y = -1;
-            for(int j = skipCol; j < hop*col + skipCol-1; j = j + hop){
+            for(int j = skipCol; j < hop*colRat + skipCol; j = j + hop){
                 y++;
                 try {
-                    prime[x][y] = averInner(i,j, image);
+                    prime[x][y] = averImage(i,j, image);
                 }catch(ArrayIndexOutOfBoundsException e) {
                     System.out.println(i + " " + j + " calc");      //Error catching, there was some whack errors
                 }
@@ -67,8 +80,7 @@ public class colourMatrix extends intro{
         return prime;
     }
 
-
-    public rgb averInner(int i, int j, BufferedImage image){  //Aggregates the pixels
+    public rgb averImage(int i, int j, BufferedImage image){  //Aggregates the pixels
         int redSum  = 0;
         int greenSum = 0;
         int blueSum = 0;
@@ -81,13 +93,152 @@ public class colourMatrix extends intro{
                     greenSum = greenSum + ((image.getRGB(l,k) & 0xff00) >> 8);
                     blueSum = blueSum + ((image.getRGB(l,k) & 0xff0000) >> 16);
                     alphaSum = alphaSum + ((image.getRGB(l,k) & 0xff000000) >> 24);
-                }catch (Exception e){System.out.println(k + " " + l + " Aver");}
+                }catch (Exception e){System.out.println(k + " " + l + " AverInner");}
             }
         }
         int redAver = redSum / (hop*hop);               //Exactly what you think
         int greenAver = greenSum / (hop*hop);
         int blueAver = blueSum / (hop*hop);
         int alphaAver = alphaSum / (hop*hop);
+        return new rgb(redAver, greenAver, blueAver, alphaAver);
+    }
+
+    private rgb[][] initialResize(BufferedImage image){
+        int skipRow = (image.getHeight() - row*hop);      //How many in you need to go, like the dough around the stencil
+        int skipCol = (image.getWidth() - col*hop);
+
+        double skipRowRatio = ((double) image.getHeight()) / skipRow;
+        double skipColRatio = ((double) image.getWidth()) / skipCol;
+
+        double skipRowDec = skipRowRatio - (int) skipRowRatio;
+        double skipColDec = skipColRatio - (int) skipColRatio;
+
+        rgb[][] resized = new rgb[row*hop][col*hop];
+
+        int i = 0;
+
+        int hoppedRow = 0;
+        int hoppedCol = 0;
+
+        int rowToHop = (int) skipRowRatio / 2;
+        boolean justHoppedRow = false;
+
+        int gcdRow = greatestDivisor(image.getHeight(), skipRow);
+        int gcdCol = greatestDivisor(image.getWidth(), skipCol);
+
+        int skipRowTen = (int) (skipRowDec*10);
+        int skipColTen = (int) (skipColDec*10);
+
+        for(int k = 0; k < image.getHeight(); k++){
+            int modRow;
+
+            if(hoppedRow % 10 < skipRowTen){
+                modRow = (int) Math.ceil(skipRowRatio);
+            }else{
+                modRow = (int) Math.floor(skipRowRatio);
+            }
+
+            if(justHoppedRow){
+                justHoppedRow = false;
+                rowToHop = rowToHop + modRow;
+            }
+
+            int colToHop = (int) skipColRatio / 2;
+            boolean justHoppedCol = false;
+
+            if(k != rowToHop){
+                int j = 0;
+
+                for (int l = 0; l < image.getWidth(); l++) {
+
+                    int modCol;
+
+                    if(hoppedCol % 10 < skipColTen){
+                        modCol = (int) Math.ceil(skipColRatio);
+                    }else{
+                        modCol = (int) Math.floor(skipColRatio);
+                    }
+
+                    if(justHoppedCol){
+                        justHoppedCol = false;
+                        colToHop = colToHop + modCol;
+                    }
+
+                    if(l != colToHop){
+                        resized[i][j] = new rgb(image.getRGB(j,i));
+                        j++;
+                    }else{
+                        hoppedCol++;
+                        justHoppedCol = true;
+                    }
+
+                    if(l % (image.getWidth()/gcdCol) == 0 && l != 0){
+                        hoppedCol = 0;
+                        colToHop = (int) (skipColRatio / 2) + l;
+                    }
+                }
+                i++;
+            }else{
+                hoppedRow++;
+                justHoppedRow = true;
+            }
+
+            if(k % (image.getHeight()/gcdRow) == 0 && k != 0){
+                hoppedRow = 0;
+                rowToHop = (int) (skipRowRatio / 2) + k;
+            }
+        }
+
+        return resized;
+    }
+
+    private int greatestDivisor(int a, int b){
+        if(a == 0 || b == 0){
+            return Math.max(a,b);
+        }
+        int q = a/b;
+        int r = a - q*b;
+
+        if(r != 0){
+             return greatestDivisor(b, r);
+        }
+        return b;
+    }
+
+    private rgb[][] calcInnerPixels(rgb[][] mat){
+        rgb[][] prime = new rgb[row][col];
+
+        int x = 0;
+        for(int i = 0; i < mat.length; i = i + hop){
+            int y = 0;
+            for(int j = 0; j < mat[0].length; j = j + hop){
+                prime[x][y] = averMat(mat, i, j);
+                y++;
+            }
+            x++;
+        }
+        return prime;
+    }
+
+    private rgb averMat(rgb[][] mat, int i, int j){
+        int redSum = 0;
+        int greenSum = 0;
+        int blueSum = 0;
+        int alphaSum = 0;
+
+        for(int k = i; k < i + hop; k++){
+            for(int l = j; l < j + hop; l++){
+                redSum = redSum+ mat[k][l].getRed();
+                greenSum = greenSum + mat[k][l].getGreen();
+                blueSum = blueSum + mat[k][l].getBlue();
+                alphaSum = alphaSum + mat[k][l].getAlpha();
+            }
+        }
+        int redAver = redSum / (hop*hop);
+        int greenAver = greenSum / (hop*hop);
+        int blueAver = blueSum / (hop*hop);
+        int alphaAver = alphaSum / (hop*hop);
+
         return new rgb(redAver, greenAver, blueAver, alphaAver);
     }
 
@@ -100,7 +251,7 @@ public class colourMatrix extends intro{
         prime[0] = averAdapt(image, 0, 0, skipRow, skipCol);
         prime[prime.length-1] = averAdapt(image, 0,skipCol + hop*col, skipRow, skipCol);
 
-        for(int i = 1; i < col; i++){
+        for(int i = 1; i <= col; i++){
             prime[i] = averAdapt(image, 0, skipCol + (i-1)*hop, skipRow, hop);
         }
 
@@ -116,14 +267,14 @@ public class colourMatrix extends intro{
         prime[0] = averAdapt(image, skipRow + hop*row, 0, skipRow, skipCol);
         prime[prime.length-1] = averAdapt(image, skipRow + row *hop,skipCol + hop*col, skipRow, skipCol);
 
-        for(int i = 1; i < col; i++){
+        for(int i = 1; i <= col; i++){
             prime[i] = averAdapt(image, skipRow + hop*row, skipCol + (i-1)*hop, skipRow, hop);
         }
 
         return prime;
     }
 
-    private rgb averAdapt(BufferedImage image, int startRow, int startCol, int rows, int col){
+    private rgb averAdapt(BufferedImage image, int startRow, int startCol, int rows, int cols){
         int redSum = 0;
         int greenSum = 0;
         int blueSum = 0;
@@ -132,13 +283,13 @@ public class colourMatrix extends intro{
         int numOf = 0;
 
         for(int k = startRow; k < startRow + rows; k++){
-            for(int l = startCol; l < startCol + col; l++){
+            for(int l = startCol; l < startCol + cols; l++){
                 try {
                     redSum = redSum + (image.getRGB(l,k) & 0xff);                   //Fuck this, stupid fucking order
                     greenSum = greenSum + ((image.getRGB(l,k) & 0xff00) >> 8);
                     blueSum = blueSum + ((image.getRGB(l,k) & 0xff0000) >> 16);
                     alphaSum = alphaSum + ((image.getRGB(l,k) & 0xff000000) >> 24);
-                }catch (Exception e){System.out.println(k + " " + l + " Aver");}
+                }catch (Exception e){System.out.println(k + " " + l + " AverAdapt");}
                 numOf++;
             }
         }
@@ -153,11 +304,29 @@ public class colourMatrix extends intro{
     }
 
     private rgb[] calcLeftCut(BufferedImage image){
-        return null;
+        int skipRow = (image.getHeight() - row*hop)/2;      //How many in you need to go, like the dough around the stencil
+        int skipCol = (image.getWidth() - col*hop)/2;
+
+        rgb[] prime = new rgb[row];
+
+        for(int i = 0; i < col; i++){
+            prime[i] = averAdapt(image, skipRow + i*hop, 0, hop, skipCol);
+        }
+
+        return prime;
     }
 
     private rgb[] calcRightCut(BufferedImage image){
-        return null;
+        int skipRow = (image.getHeight() - row*hop)/2;      //How many in you need to go, like the dough around the stencil
+        int skipCol = (image.getWidth() - col*hop)/2;
+
+        rgb[] prime = new rgb[row];
+
+        for(int i = 0; i < col; i++){
+            prime[i] = averAdapt(image, skipRow + i*hop, skipCol + hop*col, hop, skipCol);
+        }
+
+        return prime;
     }
 
     public colourMatrix replace(colourSpace space){         //Replaces the matrix with the reduced number of colours
@@ -183,10 +352,10 @@ public class colourMatrix extends intro{
     return replaced;
     }
 
-    public BufferedImage toImage(){             //Converts the matrix into a "properly" resized image
-        BufferedImage image = new BufferedImage(col*hop, row*hop, BufferedImage.TYPE_INT_RGB);
-        for(int x = 0; x < col; x++){
-            for(int y = 0; y < row; y++){
+    public BufferedImage toImageRatio(){             //Converts the matrix into a "properly" resized image
+        BufferedImage image = new BufferedImage(colRat*hop, rowRat*hop, BufferedImage.TYPE_INT_RGB);
+        for(int x = 0; x < colRat; x++){
+            for(int y = 0; y < rowRat; y++){
                 for(int xAcross = x*hop; xAcross < (x+1)*hop; xAcross++){
                     for(int yAcross = y*hop; yAcross < (y+1)*hop; yAcross++){         //Just bad, I should use the other setter
                         image.setRGB(xAcross, yAcross, this.getInnerPixels(y,x).getColour());   //but I'm not sure how
@@ -196,6 +365,21 @@ public class colourMatrix extends intro{
         }
         return image;
     }
+
+    public BufferedImage toImageSplit(){
+        BufferedImage image = new BufferedImage(resized[0].length, resized.length, BufferedImage.TYPE_INT_RGB);
+        for(int x  = 0; x < col; x++){
+            for(int y = 0; y < row; y ++){
+                for(int xAcross = x*hop; xAcross < (x+1)*hop; xAcross++){
+                    for(int yAcross = y*hop; yAcross < (y+1)*hop; yAcross++){
+                        image.setRGB(xAcross, yAcross, this.getInnerPixels(y,x).getColour());
+                    }
+                }
+            }
+        }
+        return image;
+    }
+
     public void setInnerPixels(rgb col, int i, int j){
         this.innerPixels[i][j] = col;
     }
@@ -208,6 +392,8 @@ public class colourMatrix extends intro{
     public int getHop(){
         return this.hop;
     }
+    public int getRowRat(){ return this.rowRat;}
+    public int getColRat(){ return  this.colRat;}
     public rgb[][] getInnerPixels(){return this.innerPixels; }
     public rgb getInnerPixels(int i, int j){
         return this.innerPixels[i][j];
@@ -223,5 +409,8 @@ public class colourMatrix extends intro{
     }
     public rgb[] getRightCutOff() {
         return rightCutOff;
+    }
+    public rgb[][] getResized(){
+        return  resized;
     }
 }
