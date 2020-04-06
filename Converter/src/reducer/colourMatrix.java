@@ -26,7 +26,7 @@ public class colourMatrix extends intro{
         rowRat = image.getHeight() / hop;
         colRat = image.getWidth() / hop;
 
-        resized = initialResize(image);
+        resized = initialResize2(image);
         innerPixels = calcInnerPixels(resized);
 
         //innerPixels = calcInnerPixels(image);
@@ -120,7 +120,7 @@ public class colourMatrix extends intro{
         int hoppedRow = 0;
         int hoppedCol = 0;
 
-        int rowToHop = (int) skipRowRatio / 2;
+        int rowToHop =  (int) (skipRowRatio/2);
         boolean justHoppedRow = false;
 
         int gcdRow = greatestDivisor(image.getHeight(), skipRow);
@@ -143,7 +143,7 @@ public class colourMatrix extends intro{
                 rowToHop = rowToHop + modRow;
             }
 
-            int colToHop = (int) skipColRatio / 2;
+            int colToHop = (int) (skipColRatio/2);
             boolean justHoppedCol = false;
 
             if(k != rowToHop){
@@ -165,17 +165,17 @@ public class colourMatrix extends intro{
                     }
 
                     if(l != colToHop){
-                        resized[i][j] = new rgb(image.getRGB(j,i));
+                        resized[i][j] = new rgb(image.getRGB(l,k));
                         j++;
                     }else{
                         hoppedCol++;
                         justHoppedCol = true;
                     }
 
-                    if(l % (image.getWidth()/gcdCol) == 0 && l != 0){
-                        hoppedCol = 0;
-                        colToHop = (int) (skipColRatio / 2) + l;
-                    }
+                    //if(l % (image.getWidth()/gcdCol) == 0 && l != 0){
+                    //    hoppedCol = 0;
+                    //    colToHop = (int) (skipColRatio) + l;
+                    //}
                 }
                 i++;
             }else{
@@ -183,11 +183,88 @@ public class colourMatrix extends intro{
                 justHoppedRow = true;
             }
 
-            if(k % (image.getHeight()/gcdRow) == 0 && k != 0){
-                hoppedRow = 0;
-                rowToHop = (int) (skipRowRatio / 2) + k;
+            //if(k % (image.getHeight()/gcdRow) == 0 && k != 0){
+            //    hoppedRow = 0;
+            //    rowToHop = (int) (skipRowRatio) + k;
+            //}
+        }
+
+        return resized;
+    }
+
+    private rgb[][] initialResize2(BufferedImage image){
+        int cutRow = (image.getHeight() - row*hop);      //How many in you need to go, like the dough around the stencil
+        int cutCol = (image.getWidth() - col*hop);
+
+        int cutRowRatio = image.getHeight()/cutRow;
+        int cutColRatio = image.getWidth()/cutCol;
+
+        rgb[][] resized = new rgb[row*hop][col*hop];
+
+        int k = 0;
+
+        int hoppedRow = 0;
+
+
+        for(int i = 0; i < image.getHeight(); i++){
+            int hoppedCol = 0;
+            int l = 0;
+
+            if(i%cutRowRatio != 0){
+                for(int j = 0; j < image.getWidth(); j++){
+                    if(j%cutColRatio != 0){
+                        resized[k][l] = new rgb(image.getRGB(j,i));
+                        resized[k][col*hop-l-1] = new rgb(image.getRGB(image.getWidth()-j-1, i));
+                        resized[row*hop-k-1][col*hop-l-1] = new rgb(image.getRGB(image.getWidth()-j-1,image.getHeight()-i-1));
+                        resized[row*hop-k-1][l] = new rgb(image.getRGB(j, image.getHeight()-i-1));
+                        l++;
+                    }
+                    else{
+                        hoppedCol++;
+                        if(2*hoppedCol == cutCol - (cutCol%2)){
+                            for(int jPrime = j+(cutCol%2) + 1; jPrime < image.getWidth()-j; jPrime++){
+                                resized[k][l] = new rgb(image.getRGB(jPrime,i));
+                                resized[row*hop-k-1][l] = new rgb(image.getRGB(jPrime, image.getHeight()-i-1));
+                                l++;
+                            }
+                            break;
+                        }
+                    }
+                }
+                k++;
+            }
+            else{
+                hoppedRow++;
+                if(2*hoppedRow == cutRow - (cutRow%2)){
+                    for(int iPrime = i+(cutRow%2) + 1; iPrime < image.getHeight()-i;iPrime++){
+                        l=0;
+                        hoppedCol = 0;
+                        for(int j = 0; j < image.getWidth(); j++) {
+                            if (j % cutColRatio != 0) {
+                                resized[k][l] = new rgb(image.getRGB(j,iPrime));
+                                resized[k][col*hop-l-1] = new rgb(image.getRGB(image.getWidth()-j-1, iPrime));
+                                resized[row*hop-k-1][col*hop-l-1] = new rgb(image.getRGB(image.getWidth()-j-1, image.getHeight()-iPrime-1));
+                                resized[row*hop-k-1][l] = new rgb(image.getRGB(j, image.getHeight()-iPrime-1));
+                                l++;
+                            } else {
+                                hoppedCol++;
+                                if (2 * hoppedCol == cutCol - (cutCol%2)) {
+                                    for (int jPrime = j + (cutCol%2) + 1; jPrime < image.getWidth() - j; jPrime++) {
+                                        resized[k][l] = new rgb(image.getRGB(jPrime,iPrime));
+                                        resized[row*hop-k-1][l] = new rgb(image.getRGB(jPrime, image.getHeight()-iPrime-1));
+                                        l++;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        k++;
+                    }
+                    break;
+                }
             }
         }
+
 
         return resized;
     }

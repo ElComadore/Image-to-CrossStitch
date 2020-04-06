@@ -26,7 +26,7 @@ public class main {
         colourSpace reduced = new colourSpace(colSpace, getUserColours(colSpace));          //Create a reduced colour list, <500
         colourMatrix replaced = colMat.replace(reduced);                                //Create a matrix out of the reduced colours
         BufferedImage done = replaced.toImageSplit();                //Make the image while resizing it
-        File outFile = new File(file.getName().substring(0, file.getName().length()-4) + "Convert" + file.getName().substring(file.getName().length()-4));
+        File outFile = new File(file.getName().substring(0, file.getName().length()-4) + "Convert" + reduced.getColours().size() + file.getName().substring(file.getName().length()-4));
         ImageIO.write(done, file.getName().substring(file.getName().length()-3), outFile);
         System.exit(1);
     }

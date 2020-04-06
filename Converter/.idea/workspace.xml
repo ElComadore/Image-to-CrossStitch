@@ -7,20 +7,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9454941-2f10-4684-bec9-4d41616db863" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Interface/Interface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Interface/MonitorPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/coeno.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/coeno.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/picConvert/reducer/colourMatrix.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/picConvert/reducer/colourMatrix.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/picConvert/reducer/colourSpace.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/picConvert/reducer/colourSpace.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/picConvert/reducer/intro.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/picConvert/reducer/intro.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/picConvert/reducer/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/picConvert/reducer/main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducer/colourMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/colourMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducer/colourSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/colourSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducer/intro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/intro.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducer/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducer/rgb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/rgb.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -33,6 +36,9 @@
     <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
   <component name="ProjectId" id="1WZcBImK8KRAuMhI52TsByalNmX" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -43,12 +49,26 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../DIT012/calculator" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.main">
+    <configuration name="Interface" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Interface.Interface" />
+      <module name="picConvert" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Interface.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="reducer.main" />
       <module name="picConvert" />
@@ -65,6 +85,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.main" />
+        <item itemvalue="Application.Interface" />
       </list>
     </recent_temporary>
   </component>
@@ -119,7 +140,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581884926393</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Lots of extraneous code in this one, have reworked the resizing algoritm to more accurately preserve the overall image fidelity">
+      <created>1583076321810</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1583076321810</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -127,7 +155,8 @@
     <MESSAGE value="Just keep the pushing" />
     <MESSAGE value="This should be good, pls no hate" />
     <MESSAGE value="NOw the image is saved, beginning the dough saving process" />
-    <option name="LAST_COMMIT_MESSAGE" value="NOw the image is saved, beginning the dough saving process" />
+    <MESSAGE value="Lots of extraneous code in this one, have reworked the resizing algoritm to more accurately preserve the overall image fidelity" />
+    <option name="LAST_COMMIT_MESSAGE" value="Lots of extraneous code in this one, have reworked the resizing algoritm to more accurately preserve the overall image fidelity" />
   </component>
   <component name="WindowStateProjectService">
     <state x="243" y="42" key="#Auto_Import" timestamp="1579635646469">
@@ -142,50 +171,58 @@
       <screen x="0" y="0" width="1303" height="768" />
     </state>
     <state x="381" y="130" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1303.768@0.0.1303.768" timestamp="1579361820573" />
-    <state x="305" y="0" key="CommitChangelistDialog2" timestamp="1581884925123">
+    <state x="305" y="0" key="CommitChangelistDialog2" timestamp="1583076320681">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state x="305" y="0" key="CommitChangelistDialog2/0.0.1303.768@0.0.1303.768" timestamp="1581884925123" />
-    <state width="1260" height="189" key="GridCell.Tab.0.bottom" timestamp="1583076219536">
+    <state x="305" y="0" key="CommitChangelistDialog2/0.0.1303.768@0.0.1303.768" timestamp="1583076320681" />
+    <state x="431" y="125" key="FileChooserDialogImpl" timestamp="1586165060644">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state width="1260" height="189" key="GridCell.Tab.0.bottom/0.0.1303.768@0.0.1303.768" timestamp="1583076219536" />
-    <state width="1260" height="189" key="GridCell.Tab.0.center" timestamp="1583076219535">
+    <state x="431" y="125" key="FileChooserDialogImpl/0.0.1303.768@0.0.1303.768" timestamp="1586165060644" />
+    <state width="1260" height="194" key="GridCell.Tab.0.bottom" timestamp="1586171140429">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state width="1260" height="189" key="GridCell.Tab.0.center/0.0.1303.768@0.0.1303.768" timestamp="1583076219535" />
-    <state width="1260" height="189" key="GridCell.Tab.0.left" timestamp="1583076219535">
+    <state width="1260" height="194" key="GridCell.Tab.0.bottom/0.0.1303.768@0.0.1303.768" timestamp="1586171140429" />
+    <state width="1260" height="194" key="GridCell.Tab.0.center" timestamp="1586171140428">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state width="1260" height="189" key="GridCell.Tab.0.left/0.0.1303.768@0.0.1303.768" timestamp="1583076219535" />
-    <state width="1260" height="189" key="GridCell.Tab.0.right" timestamp="1583076219535">
+    <state width="1260" height="194" key="GridCell.Tab.0.center/0.0.1303.768@0.0.1303.768" timestamp="1586171140428" />
+    <state width="1260" height="194" key="GridCell.Tab.0.left" timestamp="1586171140428">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state width="1260" height="189" key="GridCell.Tab.0.right/0.0.1303.768@0.0.1303.768" timestamp="1583076219535" />
-    <state width="1260" height="245" key="GridCell.Tab.1.bottom" timestamp="1583076092563">
+    <state width="1260" height="194" key="GridCell.Tab.0.left/0.0.1303.768@0.0.1303.768" timestamp="1586171140428" />
+    <state width="1260" height="194" key="GridCell.Tab.0.right" timestamp="1586171140428">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state width="1260" height="245" key="GridCell.Tab.1.bottom/0.0.1303.768@0.0.1303.768" timestamp="1583076092563" />
-    <state width="1260" height="245" key="GridCell.Tab.1.center" timestamp="1583076092563">
+    <state width="1260" height="194" key="GridCell.Tab.0.right/0.0.1303.768@0.0.1303.768" timestamp="1586171140428" />
+    <state width="1260" height="218" key="GridCell.Tab.1.bottom" timestamp="1586164473239">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state width="1260" height="245" key="GridCell.Tab.1.center/0.0.1303.768@0.0.1303.768" timestamp="1583076092563" />
-    <state width="1260" height="245" key="GridCell.Tab.1.left" timestamp="1583076092563">
+    <state width="1260" height="218" key="GridCell.Tab.1.bottom/0.0.1303.768@0.0.1303.768" timestamp="1586164473239" />
+    <state width="1260" height="218" key="GridCell.Tab.1.center" timestamp="1586164473239">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state width="1260" height="245" key="GridCell.Tab.1.left/0.0.1303.768@0.0.1303.768" timestamp="1583076092563" />
-    <state width="1260" height="245" key="GridCell.Tab.1.right" timestamp="1583076092563">
+    <state width="1260" height="218" key="GridCell.Tab.1.center/0.0.1303.768@0.0.1303.768" timestamp="1586164473239" />
+    <state width="1260" height="218" key="GridCell.Tab.1.left" timestamp="1586164473239">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state width="1260" height="245" key="GridCell.Tab.1.right/0.0.1303.768@0.0.1303.768" timestamp="1583076092563" />
-    <state x="131" y="0" key="SettingsEditor" timestamp="1581526769183">
+    <state width="1260" height="218" key="GridCell.Tab.1.left/0.0.1303.768@0.0.1303.768" timestamp="1586164473239" />
+    <state width="1260" height="218" key="GridCell.Tab.1.right" timestamp="1586164473239">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state x="131" y="0" key="SettingsEditor/0.0.1303.768@0.0.1303.768" timestamp="1581526769183" />
-    <state x="243" y="116" key="Vcs.Push.Dialog.v2" timestamp="1583076265845">
+    <state width="1260" height="218" key="GridCell.Tab.1.right/0.0.1303.768@0.0.1303.768" timestamp="1586164473239" />
+    <state x="131" y="0" key="SettingsEditor" timestamp="1584974268145">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
-    <state x="243" y="116" key="Vcs.Push.Dialog.v2/0.0.1303.768@0.0.1303.768" timestamp="1583076265845" />
+    <state x="131" y="0" key="SettingsEditor/0.0.1303.768@0.0.1303.768" timestamp="1584974268145" />
+    <state x="243" y="116" key="Vcs.Push.Dialog.v2" timestamp="1586174274890">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state x="243" y="116" key="Vcs.Push.Dialog.v2/0.0.1303.768@0.0.1303.768" timestamp="1586174274890" />
+    <state x="34" y="4" key="new project wizard" timestamp="1584974420829">
+      <screen x="0" y="0" width="1303" height="768" />
+    </state>
+    <state x="34" y="4" key="new project wizard/0.0.1303.768@0.0.1303.768" timestamp="1584974420829" />
     <state x="314" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1581526784857">
       <screen x="0" y="0" width="1303" height="768" />
     </state>
@@ -196,39 +233,35 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/reducer/colourMatrix.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/reducer/colourMatrix.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/reducer/colourMatrix.java</url>
-          <line>208</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/reducer/colourMatrix.java</url>
-          <line>333</line>
+          <line>410</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/reducer/colourMatrix.java</url>
-          <line>219</line>
-          <option name="timeStamp" value="50" />
+          <line>425</line>
+          <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/reducer/colourMatrix.java</url>
-          <line>348</line>
-          <option name="timeStamp" value="51" />
+          <line>268</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/reducer/colourMatrix.java</url>
+          <line>238</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/reducer/colourMatrix.java</url>
+          <line>224</line>
+          <option name="timeStamp" value="66" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="this" />
+        <watch expression="resized" />
       </configuration>
     </watches-manager>
   </component>
