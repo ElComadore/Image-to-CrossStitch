@@ -3,10 +3,7 @@ package reducer.View;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.layout.*;
@@ -15,14 +12,8 @@ import reducer.Events.*;
 import reducer.Process.Reducer;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 
 import static reducer.Events.ModelEvent.Type.*;
 
@@ -101,8 +92,6 @@ public class ReducerGUI extends Application implements IEventHandler {
     }
 
     //Setting the Stage
-    private GraphicsContext fg;
-    private GraphicsContext bg;
 
     @Override
     public void start(Stage stage) throws IOException {

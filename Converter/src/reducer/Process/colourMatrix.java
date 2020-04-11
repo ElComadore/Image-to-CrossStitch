@@ -1,15 +1,10 @@
 package reducer.Process;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
 
 public class colourMatrix extends intro {
     private rgb[][] innerPixels;            //The complete clean cut
     private rgb[][] resized;
-    private rgb[] topCutOff;
-    private rgb[] bottomCutOff;
-    private rgb[] leftCutOff;
-    private rgb[] rightCutOff;
     private int row;
     private int col;
     private int hop;
@@ -26,16 +21,6 @@ public class colourMatrix extends intro {
         resized = initialResize2(image);
         innerPixels = calcInnerPixels(resized);
 
-        //innerPixels = calcInnerPixels(image);
-
-        //if(image.getHeight() % row != 0 && hop > 1){
-        //    topCutOff = calcTopCut(image);
-        //    bottomCutOff = calcBottomCut(image);
-        //}
-        //if(image.getWidth() % col != 0 && hop > 1) {
-        //    leftCutOff = calcLeftCut(image);
-        //    rightCutOff = calcRightCut(image);
-        //}
     }
 
     public colourMatrix(colourMatrix mat){      //To create an empty inner and outer pixel thing, probably not the greatest method
@@ -53,144 +38,7 @@ public class colourMatrix extends intro {
         return Math.min(image.getHeight() / row, image.getWidth() / col);
     }
 
-    private rgb[][] calcInnerPixels(BufferedImage image) {  //Does the averaging for the clean cut stuff
-        //int skipRow = (image.getHeight() - row*hop)/2;      //How many in you need to go, like the dough around the stencil
-        //int skipCol = (image.getWidth() - col*hop)/2;
-
-        int skipRow = (image.getHeight() - hop*rowRat)/2;
-        int skipCol = (image.getWidth() - hop*colRat)/2;
-
-        rgb[][] prime = new rgb[rowRat][colRat];      //A matrix of the right size
-        int x = -1;                                                         //Now comes the real retarded garbage
-        for(int i = skipRow; i < hop*rowRat + skipRow; i = i + hop){
-            x++;
-            int y = -1;
-            for(int j = skipCol; j < hop*colRat + skipCol; j = j + hop){
-                y++;
-                try {
-                    prime[x][y] = averImage(i,j, image);
-                }catch(ArrayIndexOutOfBoundsException e) {
-                    System.out.println(i + " " + j + " calc");      //Error catching, there was some whack errors
-                }
-            }
-        }
-        return prime;
-    }
-
-    public rgb averImage(int i, int j, BufferedImage image){  //Aggregates the pixels
-        int redSum  = 0;
-        int greenSum = 0;
-        int blueSum = 0;
-        int alphaSum = 0;
-
-        for(int k = i; k < i + hop; k++){
-            for(int l = j; l < j + hop; l++){
-                try {
-                    redSum = redSum + (image.getRGB(l,k) & 0xff);                   //Fuck this, stupid fucking order
-                    greenSum = greenSum + ((image.getRGB(l,k) & 0xff00) >> 8);
-                    blueSum = blueSum + ((image.getRGB(l,k) & 0xff0000) >> 16);
-                    alphaSum = alphaSum + ((image.getRGB(l,k) & 0xff000000) >> 24);
-                }catch (Exception e){System.out.println(k + " " + l + " AverInner");}
-            }
-        }
-        int redAver = redSum / (hop*hop);               //Exactly what you think
-        int greenAver = greenSum / (hop*hop);
-        int blueAver = blueSum / (hop*hop);
-        int alphaAver = alphaSum / (hop*hop);
-        return new rgb(redAver, greenAver, blueAver, alphaAver);
-    }
-
-    private rgb[][] initialResize(BufferedImage image){
-        int skipRow = (image.getHeight() - row*hop);      //How many in you need to go, like the dough around the stencil
-        int skipCol = (image.getWidth() - col*hop);
-
-        double skipRowRatio = ((double) image.getHeight()) / skipRow;
-        double skipColRatio = ((double) image.getWidth()) / skipCol;
-
-        double skipRowDec = skipRowRatio - (int) skipRowRatio;
-        double skipColDec = skipColRatio - (int) skipColRatio;
-
-        rgb[][] resized = new rgb[row*hop][col*hop];
-
-        int i = 0;
-
-        int hoppedRow = 0;
-        int hoppedCol = 0;
-
-        int rowToHop =  (int) (skipRowRatio/2);
-        boolean justHoppedRow = false;
-
-        int gcdRow = greatestDivisor(image.getHeight(), skipRow);
-        int gcdCol = greatestDivisor(image.getWidth(), skipCol);
-
-        int skipRowTen = (int) (skipRowDec*10);
-        int skipColTen = (int) (skipColDec*10);
-
-        for(int k = 0; k < image.getHeight(); k++){
-            int modRow;
-
-            if(hoppedRow % 10 < skipRowTen){
-                modRow = (int) Math.ceil(skipRowRatio);
-            }else{
-                modRow = (int) Math.floor(skipRowRatio);
-            }
-
-            if(justHoppedRow){
-                justHoppedRow = false;
-                rowToHop = rowToHop + modRow;
-            }
-
-            int colToHop = (int) (skipColRatio/2);
-            boolean justHoppedCol = false;
-
-            if(k != rowToHop){
-                int j = 0;
-
-                for (int l = 0; l < image.getWidth(); l++) {
-
-                    int modCol;
-
-                    if(hoppedCol % 10 < skipColTen){
-                        modCol = (int) Math.ceil(skipColRatio);
-                    }else{
-                        modCol = (int) Math.floor(skipColRatio);
-                    }
-
-                    if(justHoppedCol){
-                        justHoppedCol = false;
-                        colToHop = colToHop + modCol;
-                    }
-
-                    if(l != colToHop){
-                        resized[i][j] = new rgb(image.getRGB(l,k));
-                        j++;
-                    }else{
-                        hoppedCol++;
-                        justHoppedCol = true;
-                    }
-
-                    //if(l % (image.getWidth()/gcdCol) == 0 && l != 0){
-                    //    hoppedCol = 0;
-                    //    colToHop = (int) (skipColRatio) + l;
-                    //}
-                }
-                i++;
-            }else{
-                hoppedRow++;
-                justHoppedRow = true;
-            }
-
-            //if(k % (image.getHeight()/gcdRow) == 0 && k != 0){
-            //    hoppedRow = 0;
-            //    rowToHop = (int) (skipRowRatio) + k;
-            //}
-        }
-
-        return resized;
-    }
-
     private rgb[][] initialResize2(BufferedImage image){
-        double scale = 1.2;
         int cutRow = (image.getHeight() - row*hop);      //How many in you need to go, like the dough around the stencil
         int cutCol = (image.getWidth() - col*hop);
         int cutRowRatio;
@@ -273,7 +121,7 @@ public class colourMatrix extends intro {
         return resized;
     }
 
-    private int greatestDivisor(int a, int b){
+    /*private int greatestDivisor(int a, int b){
         if(a == 0 || b == 0){
             return Math.max(a,b);
         }
@@ -284,7 +132,7 @@ public class colourMatrix extends intro {
              return greatestDivisor(b, r);
         }
         return b;
-    }
+    }*/
 
     private rgb[][] calcInnerPixels(rgb[][] mat){
         rgb[][] prime = new rgb[row][col];
@@ -323,93 +171,6 @@ public class colourMatrix extends intro {
         return new rgb(redAver, greenAver, blueAver, alphaAver);
     }
 
-    private rgb[] calcTopCut(BufferedImage image){
-        int skipRow = (image.getHeight() - row*hop)/2;      //How many in you need to go, like the dough around the stencil
-        int skipCol = (image.getWidth() - col*hop)/2;
-
-        rgb[] prime = new rgb[col+2];
-
-        prime[0] = averAdapt(image, 0, 0, skipRow, skipCol);
-        prime[prime.length-1] = averAdapt(image, 0,skipCol + hop*col, skipRow, skipCol);
-
-        for(int i = 1; i <= col; i++){
-            prime[i] = averAdapt(image, 0, skipCol + (i-1)*hop, skipRow, hop);
-        }
-
-        return prime;
-    }
-
-    private rgb[] calcBottomCut(BufferedImage image){
-        int skipRow = (image.getHeight() - row*hop)/2;      //How many in you need to go, like the dough around the stencil
-        int skipCol = (image.getWidth() - col*hop)/2;
-
-        rgb[] prime = new rgb[col+2];
-
-        prime[0] = averAdapt(image, skipRow + hop*row, 0, skipRow, skipCol);
-        prime[prime.length-1] = averAdapt(image, skipRow + row *hop,skipCol + hop*col, skipRow, skipCol);
-
-        for(int i = 1; i <= col; i++){
-            prime[i] = averAdapt(image, skipRow + hop*row, skipCol + (i-1)*hop, skipRow, hop);
-        }
-
-        return prime;
-    }
-
-    private rgb averAdapt(BufferedImage image, int startRow, int startCol, int rows, int cols){
-        int redSum = 0;
-        int greenSum = 0;
-        int blueSum = 0;
-        int alphaSum = 0;
-
-        int numOf = 0;
-
-        for(int k = startRow; k < startRow + rows; k++){
-            for(int l = startCol; l < startCol + cols; l++){
-                try {
-                    redSum = redSum + (image.getRGB(l,k) & 0xff);                   //Fuck this, stupid fucking order
-                    greenSum = greenSum + ((image.getRGB(l,k) & 0xff00) >> 8);
-                    blueSum = blueSum + ((image.getRGB(l,k) & 0xff0000) >> 16);
-                    alphaSum = alphaSum + ((image.getRGB(l,k) & 0xff000000) >> 24);
-                }catch (Exception e){System.out.println(k + " " + l + " AverAdapt");}
-                numOf++;
-            }
-        }
-        try {
-            int redAver = redSum / numOf;               //Exactly what you think
-            int greenAver = greenSum / numOf;
-            int blueAver = blueSum / numOf;
-            int alphaAver = alphaSum / numOf;
-            return new rgb(redAver, greenAver, blueAver, alphaAver);
-        }catch (ArithmeticException e){System.out.println("Don't ask me how");}
-        return null;
-    }
-
-    private rgb[] calcLeftCut(BufferedImage image){
-        int skipRow = (image.getHeight() - row*hop)/2;      //How many in you need to go, like the dough around the stencil
-        int skipCol = (image.getWidth() - col*hop)/2;
-
-        rgb[] prime = new rgb[row];
-
-        for(int i = 0; i < col; i++){
-            prime[i] = averAdapt(image, skipRow + i*hop, 0, hop, skipCol);
-        }
-
-        return prime;
-    }
-
-    private rgb[] calcRightCut(BufferedImage image){
-        int skipRow = (image.getHeight() - row*hop)/2;      //How many in you need to go, like the dough around the stencil
-        int skipCol = (image.getWidth() - col*hop)/2;
-
-        rgb[] prime = new rgb[row];
-
-        for(int i = 0; i < col; i++){
-            prime[i] = averAdapt(image, skipRow + i*hop, skipCol + hop*col, hop, skipCol);
-        }
-
-        return prime;
-    }
-
     public colourMatrix replace(colourSpace space){         //Replaces the matrix with the reduced number of colours
         colourMatrix replaced = new colourMatrix(this);
         for(int i = 0; i < row; i++){
@@ -431,20 +192,6 @@ public class colourMatrix extends intro {
             }                                                       //of key thingy, but ah maybe in a later optimization
         }
     return replaced;
-    }
-
-    public BufferedImage toImageRatio(){             //Converts the matrix into a "properly" resized image
-        BufferedImage image = new BufferedImage(colRat*hop, rowRat*hop, BufferedImage.TYPE_INT_RGB);
-        for(int x = 0; x < colRat; x++){
-            for(int y = 0; y < rowRat; y++){
-                for(int xAcross = x*hop; xAcross < (x+1)*hop; xAcross++){
-                    for(int yAcross = y*hop; yAcross < (y+1)*hop; yAcross++){         //Just bad, I should use the other setter
-                        image.setRGB(xAcross, yAcross, this.getInnerPixels(y,x).getColour());   //but I'm not sure how
-                    }
-                }
-            }
-        }
-        return image;
     }
 
     public BufferedImage toImageSplit(){
@@ -478,18 +225,6 @@ public class colourMatrix extends intro {
     public rgb[][] getInnerPixels(){return this.innerPixels; }
     public rgb getInnerPixels(int i, int j){
         return this.innerPixels[i][j];
-    }
-    public rgb[] getTopCutOff() {
-        return topCutOff;
-    }
-    public rgb[] getBottomCutOff() {
-        return bottomCutOff;
-    }
-    public rgb[] getLeftCutOff() {
-        return leftCutOff;
-    }
-    public rgb[] getRightCutOff() {
-        return rightCutOff;
     }
     public rgb[][] getResized(){
         return  resized;
