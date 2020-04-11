@@ -1,4 +1,4 @@
-package reducer;
+package reducer.Process;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package reducer;
+package reducer.Process;
 
 public class rgb {
     private int colour;             //The bit number
@@ -17,6 +17,15 @@ public class rgb {
         alpha = (colour & 0xff000000) >>16;
         dec = 1000000*red + 1000*green + blue;
         amount = 1;
+    }
+    public rgb(int colour, double scale) {
+        red = (int) ((colour & 0xf)*scale);
+        green = (int)(((colour & 0xff00) >> 8)*scale);            //Bit conversion, which is kinda cool I guess
+        blue = (int)(((colour & 0xff0000) >> 16)*scale);
+        alpha = (colour & 0xff000000) >> 16;
+        dec = 1000000 * red + 1000 * green + blue;
+        amount = 1;
+        this.colour = alpha << 24 | blue << 16 | green << 8 | red;
     }
     public rgb(rgb colour){
         this.colour = colour.getColour();

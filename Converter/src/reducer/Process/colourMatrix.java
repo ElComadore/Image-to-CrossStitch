@@ -1,12 +1,9 @@
-package reducer;
+package reducer.Process;
 
-import com.sun.source.tree.CatchTree;
-
-import javax.swing.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
+import java.awt.image.RescaleOp;
 
-public class colourMatrix extends intro{
+public class colourMatrix extends intro {
     private rgb[][] innerPixels;            //The complete clean cut
     private rgb[][] resized;
     private rgb[] topCutOff;
@@ -193,11 +190,18 @@ public class colourMatrix extends intro{
     }
 
     private rgb[][] initialResize2(BufferedImage image){
+        double scale = 1.2;
         int cutRow = (image.getHeight() - row*hop);      //How many in you need to go, like the dough around the stencil
         int cutCol = (image.getWidth() - col*hop);
+        int cutRowRatio;
+        int cutColRatio;
 
-        int cutRowRatio = image.getHeight()/cutRow;
-        int cutColRatio = image.getWidth()/cutCol;
+        try {
+            cutRowRatio = image.getHeight()/cutRow;
+        }catch (ArithmeticException a){cutRowRatio = Integer.MAX_VALUE;}
+        try {
+            cutColRatio = image.getWidth()/cutCol;
+        }catch (ArithmeticException a ){cutColRatio = Integer.MAX_VALUE;}
 
         rgb[][] resized = new rgb[row*hop][col*hop];
 

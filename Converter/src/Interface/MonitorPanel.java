@@ -14,11 +14,11 @@ public class MonitorPanel extends JPanel {
         try {
             img = ImageIO.read(new File("C:\\Users\\coeno\\Desktop\\CrossStitch\\Converter\\998Convert.png"));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
     }
+
     protected void paintComponent(Graphics g)
     {
         //paint background image

@@ -1,4 +1,4 @@
-package reducer;
+package reducer.Process;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -35,7 +35,6 @@ public class main {
         String fullFileName = null;
         JFrame yourJFrame = new JFrame();
         FileDialog fd = new FileDialog(yourJFrame, "Choose a file", FileDialog.LOAD);
-        fd.setDirectory("C:\\");
         fd.setVisible(true);
         String filename = fd.getFile();
 
